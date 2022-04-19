@@ -1,0 +1,122 @@
+from sqlalchemy import false, true
+from words_list import english_words_set
+english_letters=['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+# multiple lists will be used in order to filter the words
+words_true_letter=[]
+words_first_letter=[]
+words_second_letter=[]
+words_third_letter=[]
+words_fourth_letter=[]
+words_fifth_letter=[]
+words_sixth_letter=[]
+words_seventh_letter=[]
+words_eighth_letter=[]
+words_ninth_letter=[]
+words_tenth_letter=[]
+
+def Crossword_solver(list_already_in,list_next_in,already_have_word_length, answer='y'):
+    #Check if this variable has been changed so to skip word length in next times as its already given by the user 
+    if already_have_word_length==false:
+        word_length=input('How many letters does your word you search for have? ')
+        for item in english_words_set:
+            if len(item)==int(word_length):
+                words_true_letter.append(item)
+    
+    # Check if the user has decided that has no other clues so to show him only the possible words not these steps again 
+    if answer in ['y','yes']:
+        letter=input("Add the letter you know the word have, for example: a   ")
+        # Check that the letter given is valid
+        while letter not in english_letters :
+            print("Please add only one letter,if you want to add more than 1 letters you will do it later  " )
+            letter=input("Add the letter you know the word have, for example: a  ")
+        # Ask the user whether we he will use letter's position or not
+        answer_place=input("Do you know this letter place? Write y for yes or n for no  ")
+        
+        # Find all the words that has the letter given in the position given
+        if answer_place in ['y','yes']:
+            letter_place=input("Now add only the number of the letter's place in word, for example: 1   ")
+            letter_place=int(letter_place)-1
+            for item in list_already_in:
+                if item[letter_place]==letter:
+                    list_next_in.append(item)
+        # Find all the words that has the letter given 
+        else:
+            for item in list_already_in:
+                if letter in item:
+                    list_next_in.append(item)
+        
+        
+        
+# variable helping count on what list the last results of words have been    
+times_function_past=0
+# Function takes three arguments 1.on what list latest results of words are,2. on what list new filtered results to go, 3.Whether to ask for letters of word or not if its already given
+Crossword_solver(words_true_letter,words_first_letter,already_have_word_length=false)
+times_function_past=times_function_past+1
+answer=input("Do you have any other letters to add? y for yes or n for no  ")
+answer=answer.lower()
+#These ifs give the option to use to give from 1 to 10 letters to help computer find the word
+if answer in ['y','yes']:
+    Crossword_solver(words_first_letter, words_second_letter, already_have_word_length=true)
+    times_function_past=times_function_past+1
+    answer=input("Do you have any other letters to add? y for yes or n for no  ")
+    answer=answer.lower()
+    if answer in ['y','yes']:
+        Crossword_solver(words_second_letter ,words_third_letter, already_have_word_length=true)
+        times_function_past=times_function_past+1
+        answer=input("Do you have any other letters to add? y for yes or n for no  ")
+        answer=answer.lower()
+        if answer in ['y','yes']:
+            Crossword_solver(words_third_letter,words_fourth_letter, already_have_word_length=true)
+            times_function_past=times_function_past+1
+            answer=input("Do you have any other letters to add? y for yes or n for no  ")
+            answer=answer.lower()
+            if answer in ['y','yes']:
+                Crossword_solver(words_fourth_letter,words_fifth_letter, already_have_word_length=true)
+                times_function_past=times_function_past+1
+                answer=input("Do you have any other letters to add? y for yes or n for no  ")
+                answer=answer.lower()
+                if answer in ['y','yes']:
+                    Crossword_solver(words_fifth_letter,words_sixth_letter, already_have_word_length=true)
+                    times_function_past=times_function_past+1
+                    answer=input("Do you have any other letters to add? y for yes or n for no  ")
+                    answer=answer.lower()
+                    if answer in ['y','yes']:
+                        Crossword_solver(words_sixth_letter,words_seventh_letter, already_have_word_length=true)
+                        times_function_past=times_function_past+1
+                        answer=input("Do you have any other letters to add? y for yes or n for no  ")
+                        answer=answer.lower()
+                        if answer in ['y','yes']:
+                            Crossword_solver(words_seventh_letter,words_eighth_letter, already_have_word_length=true)
+                            times_function_past=times_function_past+1
+                            answer=input("Do you have any other letters to add? y for yes or n for no  ")
+                            answer=answer.lower()
+                            if answer in ['y','yes']:
+                                Crossword_solver(words_eighth_letter,words_ninth_letter, already_have_word_length=true)
+                                times_function_past=times_function_past+1
+                                answer=input("Do you have any other letters to add? y for yes or n for no  ")
+                                answer=answer.lower()
+                                if answer in['yes','y']:
+                                    Crossword_solver(words_ninth_letter,words_tenth_letter, already_have_word_length=true)
+                                    times_function_past=times_function_past+1
+
+# With the help of the following variable finds out what list have the final results to print it out 
+if times_function_past==1:
+        print('words_first_letter: ',words_first_letter)
+elif times_function_past==2:
+    print('words_second_letter: ',words_second_letter)
+elif times_function_past==3:
+    print('words_third_letter: ',words_third_letter)
+elif times_function_past==4:
+    print('words_fourth_letter: ',words_fourth_letter)
+elif times_function_past==5:
+    print('words_fifth_letter: ',words_fifth_letter)
+elif times_function_past==6:
+    print('words_sixth_letter: ',words_sixth_letter)
+elif times_function_past==7:
+    print('words_seventh_letter: ',words_seventh_letter)
+elif times_function_past==8:
+    print('words_eighth_letter: ',words_eighth_letter)
+elif times_function_past==9:
+    print('words_ninth_letter: ',words_ninth_letter)
+elif times_function_past==10:
+    print('words_tenth_letter: ',words_tenth_letter)
